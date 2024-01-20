@@ -9,32 +9,244 @@
 </head>
 
 <body>
-     <div id="app"></div>
-     <script>
+     <!-- <div id="app"></div> -->
+     <!-- <div id="app2"></div> -->
+     <!-- <div id="app3"></div> -->
+     <div id="app4"></div>
+    <script>//ejercicio 1
           // -----------------------------Ejercicio 1----------------------------------
+          
           // Crear un componente
           const compoEj1 = {
+               data() {
+                    return {
+                         numero: 0,
 
+                    };
+               },
                template: `
                     <div> 
-                         <h1>Soy un componente de Vue</h1>
+                         <h1>Ejercicio 1</h1>
+
+                         <button @click="incremento">+2</button><input type="text" :value="numero" @keyup="aCero">
+                         <div>{{ numero }}</div>
                     </div>
                `,
-               data: () => ({}),
+               methods: {
+                    incremento() {
+                         this.numero += 2;
+                    },
+                    aCero(){
+                         this.numero=0;
+
+                    }
+               }
           };
 
           const ejercicio1 = Vue.createApp({
-               template:
-               `<compoEj1/>
+               data() {
+                    return {
+                         x:"",
+                         y:""
+                    };
+               },
+               methods: {
+                    coordenadas(event){
+                         {
+                         this.x = event.pageX
+                         this.y = event.pageY
+}
+                    }
+               },
+               template: `
+                    <div @mousemove="coordenadas">
+                         <compoEj1/>
+                         <p>valor de x:{{ x }}</p>
+                         <p>valor de y:{{ y }}</p>
+                    </div>
                `,
-
                components: {
-                    compoEj1
+                    compoEj1//pongo el componente dentro del template del padre
                }
           });
-
           // Montar la aplicación en el elemento con ID 'app'
           ejercicio1.mount("#app");
+     </script>
+     <script>//ejercicio 2
+          const lista = {
+               template:`<div style="text-align:center" >
+                              <h2>Crea una nueva tarea!</h2>
+                              <label>Tarea:</label><input type="text" v-model="texto" @keyup="insertadesdereturn"><button @click="insertar" >Crear</button>
+                              <br>
+                              <br>
+                              <h2>Lista</h2>
+                                   <div v-if="tareas.length==0">La lista aún no tiene tareas asignadas</div>
+                                   <ul v-for="tarea in tareas">
+                                        <li>{{ tarea }}</li>     
+                                   </ul>
+                         </div>
+                         `,
+                         data() {
+                              return {
+                                   tareas:[],
+                                   texto:"",
+                                   tecla:13
+                              }
+                         },
+                         methods: {
+                              insertar(){
+                                   if(this.texto==""){
+                                        alert("el campo de texto debe estar completado");
+                                   }else{
+                                        this.tareas.push(this.texto);
+                                        this.texto="";
+                                   }
+                                   
+                              },
+                              insertadesdereturn(e){
+                                   if(e.keyCode==13){
+                                        this.insertar();
+                                   }
+                              }
+
+                         },
+
+          };
+          const ejercicio2 =  Vue.createApp({
+               template:`
+                    <div>
+                         <h1 style="text-align:center">Lista de tareas por Realizar</h1>
+                         <lista></lista>
+                    </div>
+               `,
+               data() {
+                    return {
+                         
+                    }
+               },
+               methods:{
+
+               },
+               computed:{
+               },
+               components:{
+                    lista
+               }
+          })
+          ejercicio2.mount("#app2");
+     </script>
+     <script>//ejercicio 3
+     const boton = {
+          template:`
+          <div>
+               <button @click="sum(2)"> +2seg </button>     
+               <button @click="sum(5)"> +5seg </button>     
+               <button @click="sum(15)"> +15seg </button>     
+               <button @click="sum(25)"> +25seg </button>     
+               <label>Cuenta Atrás: </label>{{ tiempo }}
+          </div>
+          `,
+          data() {
+               return {
+                    tiempo:20,
+                    id:""
+               }
+          },
+          methods:{
+               cuentaAtras(){
+                    setInterval(() => {
+                         if(this.tiempo!=0){
+                              this.tiempo=this.tiempo-1;
+                         }else{
+                              clearTimeout;
+                         }
+                    }, 1000);
+               },
+               sum(valor){
+                    this.tiempo+=valor;
+                    console.log("he sumado "+valor+" segundos");
+               },
+          },
+          mounted() {
+               this.cuentaAtras();
+          },
+     };
+     const ejercicio3 = Vue.createApp({
+          template:`
+                    <div>
+                         <boton></boton>
+                    </div>          
+          `,
+          components:{
+               boton
+          },
+
+     })
+     ejercicio3.mount("#app3");
+     </script> 
+     <script>//ejercicio 4
+          const listaTareas ={
+               template:`
+                    <div>
+                         <h2 style="color:blue">Desde componente hijo</h2>
+                         <ul v-for="(tarea,index) in newTareaProp" :key="index">
+                              <li>{{ tarea }}<button @click="eliminar(index)">Eliminar</button></li>
+                         </ul>
+
+                    </div>
+                         `,
+               props:{
+                    newTareaProp:Array,
+               },
+               methods:{
+                    eliminar(index){
+                         this.$emit('delet',index);
+                    }
+               }
+          }
+          const nuevaTarea = {
+               template:`
+                         <div>
+                              <input type="text" placeholder="escribe una nueva tarea" v-model="newTarea">
+                              <button @click="insertaTarea">Crear</button>
+                              <div v-if="tareas.length!=0">
+                                   <listaTareas :newTareaProp="tareas" @delet="eliminarTarea"></listaTareas>
+                              </div>
+                         </div>
+                         `,
+               components:{
+                    listaTareas
+               },
+               data() {
+                    return {
+                         tareas:[],
+                         newTarea:"",
+
+                    }
+               },
+               methods: {
+                    insertaTarea(){
+                         this.tareas.push(this.newTarea);
+                         this.newTarea="";
+                         console.log(this.tareas);
+                    },
+                    eliminarTarea(inice){
+                         this.tareas.splice(inice,1);
+                    }
+               },
+          };
+          const ejercicio4 = Vue.createApp({
+               template:`
+                         <div>
+                              <h1 style="text-align:center">Ejercicio 4, pasando props</h1>
+                              <nuevaTarea></nuevaTarea>
+                         </div>
+                         `,
+               components:{
+                    nuevaTarea
+               }
+          });
+          ejercicio4.mount("#app4");
      </script>
 </body>
 
