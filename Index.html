@@ -12,10 +12,11 @@
      <!-- <div id="app"></div> -->
      <!-- <div id="app2"></div> -->
      <!-- <div id="app3"></div> -->
-     <div id="app4"></div>
-    <script>//ejercicio 1
+     <!-- <div id="app4"></div> -->
+     <div id="app5"></div>
+     <script>//ejercicio 1
           // -----------------------------Ejercicio 1----------------------------------
-          
+
           // Crear un componente
           const compoEj1 = {
                data() {
@@ -36,8 +37,8 @@
                     incremento() {
                          this.numero += 2;
                     },
-                    aCero(){
-                         this.numero=0;
+                    aCero() {
+                         this.numero = 0;
 
                     }
                }
@@ -46,16 +47,16 @@
           const ejercicio1 = Vue.createApp({
                data() {
                     return {
-                         x:"",
-                         y:""
+                         x: "",
+                         y: ""
                     };
                },
                methods: {
-                    coordenadas(event){
+                    coordenadas(event) {
                          {
-                         this.x = event.pageX
-                         this.y = event.pageY
-}
+                              this.x = event.pageX
+                              this.y = event.pageY
+                         }
                     }
                },
                template: `
@@ -74,7 +75,7 @@
      </script>
      <script>//ejercicio 2
           const lista = {
-               template:`<div style="text-align:center" >
+               template: `<div style="text-align:center" >
                               <h2>Crea una nueva tarea!</h2>
                               <label>Tarea:</label><input type="text" v-model="texto" @keyup="insertadesdereturn"><button @click="insertar" >Crear</button>
                               <br>
@@ -86,34 +87,34 @@
                                    </ul>
                          </div>
                          `,
-                         data() {
-                              return {
-                                   tareas:[],
-                                   texto:"",
-                                   tecla:13
-                              }
-                         },
-                         methods: {
-                              insertar(){
-                                   if(this.texto==""){
-                                        alert("el campo de texto debe estar completado");
-                                   }else{
-                                        this.tareas.push(this.texto);
-                                        this.texto="";
-                                   }
-                                   
-                              },
-                              insertadesdereturn(e){
-                                   if(e.keyCode==13){
-                                        this.insertar();
-                                   }
-                              }
+               data() {
+                    return {
+                         tareas: [],
+                         texto: "",
+                         tecla: 13
+                    }
+               },
+               methods: {
+                    insertar() {
+                         if (this.texto == "") {
+                              alert("el campo de texto debe estar completado");
+                         } else {
+                              this.tareas.push(this.texto);
+                              this.texto = "";
+                         }
 
-                         },
+                    },
+                    insertadesdereturn(e) {
+                         if (e.keyCode == 13) {
+                              this.insertar();
+                         }
+                    }
+
+               },
 
           };
-          const ejercicio2 =  Vue.createApp({
-               template:`
+          const ejercicio2 = Vue.createApp({
+               template: `
                     <div>
                          <h1 style="text-align:center">Lista de tareas por Realizar</h1>
                          <lista></lista>
@@ -121,23 +122,23 @@
                `,
                data() {
                     return {
-                         
+
                     }
                },
-               methods:{
+               methods: {
 
                },
-               computed:{
+               computed: {
                },
-               components:{
+               components: {
                     lista
                }
           })
           ejercicio2.mount("#app2");
      </script>
      <script>//ejercicio 3
-     const boton = {
-          template:`
+          const boton = {
+               template: `
           <div>
                <button @click="sum(2)"> +2seg </button>     
                <button @click="sum(5)"> +5seg </button>     
@@ -146,47 +147,47 @@
                <label>Cuenta Atrás: </label>{{ tiempo }}
           </div>
           `,
-          data() {
-               return {
-                    tiempo:20,
-                    id:""
-               }
-          },
-          methods:{
-               cuentaAtras(){
-                    setInterval(() => {
-                         if(this.tiempo!=0){
-                              this.tiempo=this.tiempo-1;
-                         }else{
-                              clearTimeout;
-                         }
-                    }, 1000);
+               data() {
+                    return {
+                         tiempo: 20,
+                         id: ""
+                    }
                },
-               sum(valor){
-                    this.tiempo+=valor;
-                    console.log("he sumado "+valor+" segundos");
+               methods: {
+                    cuentaAtras() {
+                         setInterval(() => {
+                              if (this.tiempo != 0) {
+                                   this.tiempo = this.tiempo - 1;
+                              } else {
+                                   clearTimeout;
+                              }
+                         }, 1000);
+                    },
+                    sum(valor) {
+                         this.tiempo += valor;
+                         console.log("he sumado " + valor + " segundos");
+                    },
                },
-          },
-          mounted() {
-               this.cuentaAtras();
-          },
-     };
-     const ejercicio3 = Vue.createApp({
-          template:`
+               mounted() {
+                    this.cuentaAtras();
+               },
+          };
+          const ejercicio3 = Vue.createApp({
+               template: `
                     <div>
                          <boton></boton>
                     </div>          
           `,
-          components:{
-               boton
-          },
+               components: {
+                    boton
+               },
 
-     })
-     ejercicio3.mount("#app3");
-     </script> 
+          })
+          ejercicio3.mount("#app3");
+     </script>
      <script>//ejercicio 4
-          const listaTareas ={
-               template:`
+          const listaTareas = {
+               template: `
                     <div>
                          <h2 style="color:blue">Desde componente hijo</h2>
                          <ul v-for="(tarea,index) in newTareaProp" :key="index">
@@ -195,17 +196,17 @@
 
                     </div>
                          `,
-               props:{
-                    newTareaProp:Array,
+               props: {
+                    newTareaProp: Array,
                },
-               methods:{
-                    eliminar(index){
-                         this.$emit('delet',index);
+               methods: {
+                    eliminar(index) {
+                         this.$emit('delet', index);
                     }
                }
           }
           const nuevaTarea = {
-               template:`
+               template: `
                          <div>
                               <input type="text" placeholder="escribe una nueva tarea" v-model="newTarea">
                               <button @click="insertaTarea">Crear</button>
@@ -214,40 +215,136 @@
                               </div>
                          </div>
                          `,
-               components:{
+               components: {
                     listaTareas
                },
                data() {
                     return {
-                         tareas:[],
-                         newTarea:"",
+                         tareas: [],
+                         newTarea: "",
 
                     }
                },
                methods: {
-                    insertaTarea(){
+                    insertaTarea() {
                          this.tareas.push(this.newTarea);
-                         this.newTarea="";
+                         this.newTarea = "";
                          console.log(this.tareas);
                     },
-                    eliminarTarea(inice){
-                         this.tareas.splice(inice,1);
+                    eliminarTarea(inice) {
+                         this.tareas.splice(inice, 1);
                     }
                },
           };
           const ejercicio4 = Vue.createApp({
-               template:`
+               template: `
                          <div>
                               <h1 style="text-align:center">Ejercicio 4, pasando props</h1>
                               <nuevaTarea></nuevaTarea>
                          </div>
                          `,
-               components:{
+               components: {
                     nuevaTarea
                }
           });
           ejercicio4.mount("#app4");
      </script>
+     <script>//ejercicio 5
+          const PokeGuia = {
+               props: {
+                    pokemonName: String,
+                    
+               },
+               template: `
+                  <div style="text-align:center">
+                      <div style="margin:3rem">
+                          <h4>El nombre del Pokemon es: {{ pokemonName }}  </h4>
+                      </div>
+                      
+                  </div>
+              `,
+          };
+
+          const pokeApi = Vue.createApp({
+               template: `
+                  <div style="text-align:center">
+                      <div>
+                          <img src="/imagenes/pokeapi_256.3fa72200.png">
+                      </div>
+                      <div style="text-align:center">     
+                          <h1>PokeGuia</h1>
+                          <label>Nombre : </label> <input type="text" v-model="pokemonSeleccionado"> <button style="color:orange" @click="getpikachu">Buscar</button>
+                      </div>
+                      <div style="margin:3rem">
+                          <select v-model="pokemonSeleccionado" style="width:150px" @change="getpikachu" >
+                              <option v-for="(pokemon, index) in pokemons" :key="index">{{ pokemon.name }}</option>
+                          </select>
+                      </div>
+                     
+                      <div>
+                          <PokeGuia :pokemonName="objetoPokemon.name"></PokeGuia>
+                      </div>
+                      <div style="margin:3rem">
+                          <h2>Habilidades</h2>
+                          <ul v-for="habilidad in this.objetoPokemon.abilities">
+                              <li>{{ habilidad.ability.name }}</li>
+                          </ul>
+                      </div>
+                      <div style="margin:3rem">
+                          <h2>Movimientos</h2>
+                           <ul v-for="movimiento in this.objetoPokemon.moves">
+                              <li>{{ movimiento.move.name }}</li>
+                          </ul>
+                      </div>
+                  </div>
+              `,
+               data() {
+                    return {
+                         objetoPokemon:{},
+                         pokemons: [],
+                         pokemonSeleccionado: "pikachu",
+                    };
+               },
+               methods: {
+                    
+                    getpikachu() {
+                         fetch(`https://pokeapi.co/api/v2/pokemon/${this.pokemonSeleccionado}`)
+                              .then((respuesta) => respuesta.json())
+                              .then((data) => {this.objetoPokemon = data})
+                              
+                              .catch((error) => {
+                                   console.error("Error al obtener datos:", error);
+                              });
+
+                    },
+                    getallData() {
+                         fetch("https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20")
+                              .then((respuesta) => respuesta.json())
+                              .then((data) => {this.pokemons = data.results})
+                              
+                              .catch((error) => {
+                                   console.error("Error al obtener datos:", error);
+                              });
+
+                    },
+                    encuentraPokemon(nombre){
+                         this.pokemonSeleccionado=this.pokemons.find((pokemon)=>pokemon.name==nombre);
+                    }
+               },
+               async mounted() {
+                   await this.getpikachu();
+                   this.getallData();
+               },
+
+               components: {
+                    PokeGuia,
+               },
+          });
+
+          pokeApi.mount("#app5");
+     </script>
+
+
 </body>
 
 </html>
