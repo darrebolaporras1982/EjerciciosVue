@@ -354,33 +354,43 @@
                     <div style="display:flex;flex-direction: column;">
                          <div style="padding: 1.5rem;">
                               <label for="Titulo">Titulo :</label>
-                              <input type="text" name="" id="">
+                              <input type="text" v-model="texto">
                          </div>
                          <div style="padding: 1.5rem;">
                               <label for="Filtro">Filtro :</label>
-                              <select name="" id="" style="width:80px"></select>
+                              <select v-model="value"  name="tipos"style="width:80px">
+                                   <option v-for="(props,index) in cats" :key="index" value="mono">{{ props.tags }}</option>
+                                   
+                              </select>
                          </div>
                          <div style="padding: 1.5rem;">
                               <label for="Color">Color :</label>
-                              <select name="" id="" style="width:80px"></select>
+                              <select v-model="color" name="colores" style="width:80px">
+                                   <option value="red">red</option>
+                                   <option value="blue">blue</option>
+                                   <option value="green">green</option>
+                              </select>
                          </div>
                          <div style="padding: 1.5rem;">
                               <label for="Tamaño">Tamaño :</label>
-                              <input type="text" name="" id="">
+                              <input type="number" placeholder="300" v-model="ssize" min="0">
                          </div>
                     </div>
                </div>`,
                data() {
                     return {
                          cats:[],
-
+                         value:"",
+                         texto:"",
+                         ssize:"",
+                         color:""
                     }
                },
                methods: {
                     // /cat/:tag/says/:text
                     // /cat/says/:text?fontSize=:size&fontColor=:color
                     funcionPrueba(){
-                         fetch("https://cataas.com/cat").then((resp)=>console.log(resp))
+                         fetch(`https://cataas.com/api/cats`).then((resp)=>resp.json()).then((data)=>{this.cats=data})
                     }
                },
                mounted() {
@@ -389,8 +399,7 @@
 
           });
      ejercicio6.mount("#app6");
-     </script>
-    
+     </script>     
 </body>
 
 </html>
