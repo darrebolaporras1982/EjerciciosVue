@@ -2,6 +2,7 @@
   <div class="about">
     <h1>This is an about page</h1>
   </div>
+  <img src="../../public/imgs/CapturaEjercicio_7-About.JPG" alt="">
 </template>
 
 <style>

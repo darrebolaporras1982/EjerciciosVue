@@ -4,6 +4,7 @@ import TheWelcome from '../components/TheWelcome.vue'
 
 <template>
   <main>
-    <TheWelcome />
+    
+    <img src="../../public/imgs/CapturaEjercicio_7-Inicio.JPG" alt="">
   </main>
 </template>
