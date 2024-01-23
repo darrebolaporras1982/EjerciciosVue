@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+     <script src="https://cdn.tailwindcss.com"></script>
+     <title>Document</title>
+</head>
+<body>
+     <!-- <div id="app1"></div> -->
+     <!-- <div id="app2"></div> -->
+     <div id="app3"></div>
+     <script>//ejercicio 1
+          const ejercicio1 = Vue.createApp({
+            template: `
+              <div @mousemove="coordenadas">
+                    <div class="flex flex-col text-center text-3xl items-center">
+                         <h1>Ejercicio 1</h1>
+                         <p>Muestre un botón que incremente un valor de 2 en 2.</p>
+                         <button class="border w-40 rounded-xl bg-red-200 shadow-xl hover:scale-125" @click="incrementa">Incrementa 2</button>
+                         <div>{{ resultado }}</div>
+                         <div>
+                              <p>Muestre una caja de texto que nos permita iniciar el contador activándose en el evento keyup.</p>
+                              <input @keyup="reinicia" type="text" v-model="ivalue" class="bg-red-200 rounded-xl text-center shadow-xl" placeholder="Escribe Aquí">
+                         </div>
+                         <div>coordenada X--> {{ coorX }}</div>
+                         <div>coordenada Y--> {{ coorY }}</div>
+                    </div>
+              </div>
+            `,
+            data() {
+              return {
+                resultado: 0,
+                ivalue: "",
+                coorX:"",
+                coorY:""
+              };
+            },
+            methods: {
+              incrementa() {
+                this.resultado += 2;
+              },
+              reinicia() {
+                // Reset the counter based on the input value
+                this.resultado = parseInt(this.ivalue) || 0;
+              },
+              coordenadas(event){
+               this.coorX=event.pageX;
+               this.coorY=event.pageY;
+              }
+            },
+          });
+          
+          ejercicio1.mount("#app1");
+     </script>
+     <script>//ejercicio 2
+          const ejercicio2 = Vue.createApp({
+               template:`
+                    <div>
+                         <div class="flex flex-col text-center items-center">     
+                              <h1 class="text-center text-xl bg-green-300 my-4 p-2 rounded-lg">Añade tareas a la lista</h1>
+                              <input @keyup.enter="insertar" type="text" v-model="texto" class="w-40 flex m-auto bg-red-200 p-2 mx-2 rounded-xl shadow-xl text-center "><button @click="insertar" class="bg-gray-400 rounded-xl p-4 my-4">Añadir</button>
+                              <h2 v-if="tareas.length==0">No hay ninguna tarea añadida en este momento</h2>
+                              <ul v-for="tarea in tareas"><li>{{ tarea }}</li></ul>
+                         </div>
+                    </div>
+               `,
+               data() {
+                    return {
+                         tareas:[],
+                         texto:"",
+                    }
+               },
+               methods:{
+                    insertar(){
+                         if(this.texto==""){
+                              alert("debes ingresar la tarea en la caja de texto");
+                         }else if(this.tareas.includes(this.texto)){
+                              alert("esa tarea ya esta apuntada");
+                         }else{
+                              this.tareas.push(this.texto.toLowerCase());
+                               this.texto="";
+                         }
+                         
+                    }
+               }
+          });
+          ejercicio2.mount("#app2");
+     </script>
+     <script>//ejercicio 3
+          const ejercicio3 = Vue.createApp({
+            template: `
+              <div class="flex flex-col items-center">
+                
+                  <button class="bg-orange-300 w-36 rounded-xl border shadow-xl p-4 m-3" @click="aumenta_tiempo(2)">Incrementa 2</button>
+                
+                
+                 
+                  <button class="bg-orange-300 w-36 rounded-xl border shadow-xl p-4 m-3" @click="aumenta_tiempo(5)">Incrementa 5</button>
+                
+                
+                 
+                  <button class="bg-orange-300 w-36 rounded-xl border shadow-xl p-4 m-3" @click="aumenta_tiempo(10)">Incrementa 10</button>
+                
+               
+                 
+                  <button class="bg-orange-300 w-36 rounded-xl border shadow-xl p-4 m-3" @click="aumenta_tiempo(15)">Incrementa 15</button>
+                
+                <div class="text-8xl">{{ tiempo }}</div>
+              </div>
+            `,
+            data() {
+              return {
+                tiempo: 10,
+              };
+            },
+            methods: {
+              reduce_tiempo() {
+                this.tiempo--;
+              },
+              aumenta_tiempo(numero) {
+                this.tiempo += numero;
+              },
+              comienzo() {
+                setInterval(() => {
+                  if (this.tiempo !== 0) {
+                    this.reduce_tiempo();
+                  } else {
+                    clearInterval(); // Clear the interval when tiempo reaches 0
+                  }
+                }, 1000);
+              },
+            },
+            mounted() {
+              this.comienzo();
+            },
+          });
+          
+          ejercicio3.mount("#app3");
+     </script>
+</body>
+</html>
