@@ -87,7 +87,7 @@ export const useStoreMusica = defineStore('StoreMusica', {
   actions:{
     valorizar(variable){
       this.seleccion=variable;
-      alert("funcion ejecutada");
+      alert("funcion ejecutada,valor "+this.seleccion);
     }
   }
 })
