@@ -13,7 +13,7 @@ const router = createRouter({
     {
       path: '/second',
       name: 'secondPage',
-      component: () => import('../views/secondPage.vue')
+      component: secondPage
     },
     {
       path: '/third',
