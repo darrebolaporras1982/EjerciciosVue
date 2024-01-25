@@ -6,7 +6,7 @@ export const useStoreMusica = defineStore('StoreMusica', {
       {
         producto: 'Guitarra eléctrica',
         marca: 'Fender',
-        tipo: 'Stratocaster',
+        modelo: 'Stratocaster',
         precio: 1000
       },
       {
@@ -36,7 +36,7 @@ export const useStoreMusica = defineStore('StoreMusica', {
       {
         producto: 'Bajo eléctrico',
         marca: 'Ibanez',
-        tipo: 'SR500',
+        modelo: 'SR500',
         precio: 800
       },
       {
@@ -48,7 +48,7 @@ export const useStoreMusica = defineStore('StoreMusica', {
       {
         producto: 'Cuerdas de guitarra acústica',
         marca: "D'Addario",
-        tipo: 'Phosphor Bronze',
+        modelo: 'Phosphor Bronze',
         precio: 12
       },
       {
@@ -83,11 +83,26 @@ export const useStoreMusica = defineStore('StoreMusica', {
       }
     ],
     seleccion:"",
+    nombre:"",
+    marca:"",
+    modelo:"",
+    precio:"",
+    inice:null
   }),
   actions:{
     valorizar(variable){
-      this.seleccion=variable;
-      alert("funcion ejecutada,valor "+this.seleccion);
+      // this.seleccion=variable;
+      this.indice=this.tiendaDeMusica.findIndex(objeto => objeto.producto===variable);
+      this.seleccion=this.tiendaDeMusica[this.indice].producto;
+      this.marca=this.tiendaDeMusica[this.indice].marca;
+      this.modelo=this.tiendaDeMusica[this.indice].modelo;
+      this.precio=this.tiendaDeMusica[this.indice].precio;
+      
+      
+    },
+    nombrar(variable){
+      this.nombre=variable;
+      
     }
   }
 })

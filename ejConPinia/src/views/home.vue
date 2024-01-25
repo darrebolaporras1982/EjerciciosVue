@@ -28,11 +28,13 @@ export default{
      methods: {
           Revalorizar(Local){
                this.valorizar(Local);
+
           },
+
           ...mapActions(useStoreMusica,["valorizar"])
      },
      computed:{
-          ...mapWritableState(useStoreMusica,["tiendaDeMusica"])
+          ...mapWritableState(useStoreMusica,["tiendaDeMusica","marca","tipo","precio"])
      },
 }
 </script>

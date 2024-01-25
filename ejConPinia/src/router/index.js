@@ -18,7 +18,7 @@ const router = createRouter({
     {
       path: '/third',
       name: 'thirdPage',
-      component: () => import('../views/thirdPage.vue')
+      component:thirdPage
     },
   ]
 })
