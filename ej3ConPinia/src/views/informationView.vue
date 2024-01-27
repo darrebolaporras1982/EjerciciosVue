@@ -1,6 +1,6 @@
 <template>
      <div class="text-center text-xl font-semibold"><h2 >Information Page</h2>
-     <h2>Estea informacion es del Array</h2></div>
+     <h2>Esta información es del Array,No de la petición</h2></div>
      
      <div class="grid grid-cols-5">
      <ul v-for="pokemon in arrayFiltrado">
