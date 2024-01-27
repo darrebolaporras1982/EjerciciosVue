@@ -5,7 +5,6 @@ export const usePokemonStore =defineStore("pokemonStore",{
           arrayFiltrado:[],
      }),
      actions:{
-         
      }
 })
  

@@ -6,7 +6,6 @@
                <select v-model="url" class="border shadow-xl p-2 rounded-xl mx-3 bg-slate-100" @change="getpokemonsType"> 
                     <option :value="tipo.url" v-for="tipo in pokemons" >{{ tipo.name }}</option>
                </select>
-               <button @click="" class="p-4 bg-green-100 rounded-xl hover:bg-green-200 hover:shadow-xl">Obtener</button>
                </div>
           </div>
           <div class="grid grid-cols-5">
