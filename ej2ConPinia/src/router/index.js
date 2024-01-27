@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import home from '../views/home.vue';
-import secondPage from '../views/secondPage.vue';
-import thirdPage from '../views/thirdPage.vue';
+import secondView from '../views/secondView.vue';
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -12,13 +12,8 @@ const router = createRouter({
     },
     {
       path: '/second',
-      name: 'secondPage',
-      component: secondPage
-    },
-    {
-      path: '/third',
-      name: 'thirdPage',
-      component:thirdPage
+      name: 'second',
+      component: secondView
     },
   ]
 })
