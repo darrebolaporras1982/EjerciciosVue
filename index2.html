@@ -10,7 +10,8 @@
 <body>
      <!-- <div id="app1"></div> -->
      <!-- <div id="app2"></div> -->
-     <div id="app3"></div>
+     <!-- <div id="app3"></div> -->
+     <div id="app6"></div>
      <script>//ejercicio 1
           const ejercicio1 = Vue.createApp({
             template: `
@@ -139,5 +140,40 @@
           
           ejercicio3.mount("#app3");
      </script>
+      <script>//ejercicio 6Gatos
+
+        const ejercicio6= Vue.createApp({
+          template:`
+          <h1 class="text-center font-semibold text-xl">Este es el ejercicio 6 de los gatos</h1>
+          <p class="text-center bg-green-100">## Ejercicio 6
+
+            ![Inicio de Ejercicio6](./Imagenes/CapturaEjercicio_6-0.JPG)
+
+            ### Crea una app que usando la API https://cataas.com/ haga lo siguiente:
+
+            1.  En el primer componente padre Ejercicio6 estableceremos las características del gato a traer
+                1.  Seleccionaremos las características que queramos teniendo en consideración la documentación de la API. En la imagen hay un ejemplo
+            2.  Al pulsar el botón mostrar gato, accedermos a la API con las características seleccionadas y la url devuelta se la mandaremos a un componente hijo para que la muestre.</p>
+            <img :src="img">
+          `,
+          data() {
+            return {
+              img:""
+            }
+          },
+          methods: {
+           async getData(){
+               await fetch("https://cataas.com/cat?type=medium&filter=custom&fit=cover&position=centre&width=400&height=400&r=133&g=113&b=134")
+               .then(resp=>(resp.url)).then((data)=>{this.img=data})
+            }
+          },
+          mounted(){
+            this.getData();
+          }
+
+        });
+        ejercicio6.mount("#app6");
+        
+      </script>
 </body>
 </html>
