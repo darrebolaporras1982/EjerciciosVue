@@ -10,8 +10,9 @@
 <body>
      <!-- <div id="app1"></div> -->
      <!-- <div id="app2"></div> -->
-     <!-- <div id="app3"></div> -->
-     <div id="app6"></div>
+     <div id="app3"></div>
+     <!-- <div id="app5"></div> -->
+     <!-- <div id="app6"></div> -->
      <script>//ejercicio 1
           const ejercicio1 = Vue.createApp({
             template: `
@@ -108,20 +109,39 @@
                  
                   <button class="bg-orange-300 w-36 rounded-xl border shadow-xl p-4 m-3" @click="aumenta_tiempo(15)">Incrementa 15</button>
                 
-                <div class="text-8xl">{{ tiempo }}</div>
+                <div class="text-8xl">{{ this.minutos+" : "+this.segundos  }}</div>
               </div>
             `,
             data() {
               return {
-                tiempo: 10,
+                tiempo: undefined,
+                segundos:10,
+                minutos:0,
+                
               };
             },
             methods: {
               reduce_tiempo() {
-                this.tiempo--;
+                this.segundos--;
               },
               aumenta_tiempo(numero) {
-                this.tiempo += numero;
+                this.segundos += numero;
+                while(this.tiempo!=0){
+                  
+                }
+                if(this.segundos>=60){
+                  this.minutos++;
+                  this.segundos=this.segundos-60;
+                }
+                if(this.minutos>0&&this.segundos==0){
+                  this.minutos--;
+                  this.segundos=59;
+                }
+                if(this.minutos==0&&this.segundos>=0){
+                  this.tiempo=0;
+                  clearInterval();
+                }
+                
               },
               comienzo() {
                 setInterval(() => {
@@ -140,7 +160,66 @@
           
           ejercicio3.mount("#app3");
      </script>
-      <script>//ejercicio 6Gatos
+     <script>//ejercicio 5
+      const ejercicio5 = Vue.createApp({
+        template:`
+        <div class="flex justify-center">
+          <img src="/imagenes/pokeapi_256.3fa72200.png">
+        </div>
+        <div class="flex justify-center font-bold my-10">
+          <h2>POKEGUIA</h2>
+        </div>
+        <div class="text-center">
+        <label for="buscar">Nombre :<input v-model="nombrePokemon" class="border rounded-lg shadow-xl p-2 mx-4" type="text" name="" id="" placeholder="Nombre..."></label><button class="p-2 border bg-red-200 shadow-xl hover:bg-red-300 rounded-xl" @click="getImg(nombrePokemon)">Buscar</button>
+        </div>
+        <div class="flex flex-col justify-center text-center my-5 ">
+          <div class="flex flex-col justify-center items-center">
+            <h2>El nombre del pokemon seleccionado es : <span class="font-bold">{{ this.nombrePokemon }}</span></h2>
+          <img :src="img" class="w-[200px]">
+
+          <select v-model="nombrePokemon" name="" id="" @change="getImg(nombrePokemon)">
+            <option v-for="pokemon in pokemonsTodos">{{ pokemon.name }}</option>
+          </select>
+          
+          </div>
+
+        </div>
+        `,
+        data() {
+          return {
+            pokemonsTodos:[],
+            nombrePokemon:"pikachu",
+            img:""
+          }
+        },
+        methods: {
+          getAllData(){
+            fetch("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1300").then(resp=>resp.json())
+            .then(data=>{this.pokemonsTodos=data.results;console.log(this.pokemonsTodos)})
+          },
+          getImg(name){
+            fetch("https://pokeapi.co/api/v2/pokemon/"+name).then((respuesta) => respuesta.json())
+            .then((data)=>{this.img=data.sprites.front_default})
+
+          },
+        
+        },
+         mounted() {
+          this.getAllData();
+          this.getImg(this.nombrePokemon);
+        },
+        components:{
+
+        },
+        computed:{
+
+        }
+      })
+      ejercicio5.mount("#app5");
+      
+     </script>
+     
+     <!--  <script>//ejercicio 6Gatos
 
         const ejercicio6= Vue.createApp({
           template:`
@@ -174,6 +253,8 @@
         });
         ejercicio6.mount("#app6");
         
-      </script>
+      </script> -->
+      
+
 </body>
 </html>
