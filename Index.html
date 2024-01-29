@@ -13,8 +13,8 @@
      <!-- <div id="app2"></div> -->
      <!-- <div id="app3"></div> -->
      <!-- <div id="app4"></div> -->
-     <!-- <div id="app5"></div> -->
-     <div id="app6"></div>
+     <div id="app5"></div>
+     <!-- <div id="app6"></div> -->
      <script>//ejercicio 1
           // -----------------------------Ejercicio 1----------------------------------
 
@@ -281,6 +281,7 @@
                               <option v-for="(pokemon, index) in pokemons" :key="index">{{ pokemon.name }}</option>
                           </select>
                       </div>
+                      <img :src="url">
                      
                       <div>
                           <PokeGuia :pokemonName="objetoPokemon.name"></PokeGuia>
@@ -304,6 +305,7 @@
                          objetoPokemon: {},
                          pokemons: [],
                          pokemonSeleccionado: "pikachu",
+                         url:""
                     };
                },
                methods: {
@@ -311,7 +313,7 @@
                     getpikachu() {
                          fetch(`https://pokeapi.co/api/v2/pokemon/${this.pokemonSeleccionado}`)
                               .then((respuesta) => respuesta.json())
-                              .then((data) => { this.objetoPokemon = data })
+                              .then((data) => { this.url = data.sprites.front_default })
 
                               .catch((error) => {
                                    console.error("Error al obtener datos:", error);
