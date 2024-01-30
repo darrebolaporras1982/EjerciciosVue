@@ -6,6 +6,7 @@
                <router-link to="/ejercicio3" class="p-5 hover:bg-green-200">Ejercicio 3</router-link>
                <router-link to="/ejercicio4" class="p-5 hover:bg-green-200">Ejercicio 4</router-link>
                <router-link to="/ejercicio5" class="p-5 hover:bg-green-200">Ejercicio 5</router-link>
+               <router-link to="/ejercicio6" class="p-5 hover:bg-green-200">Ejercicio 6</router-link>
               
           </nav>
      </div>

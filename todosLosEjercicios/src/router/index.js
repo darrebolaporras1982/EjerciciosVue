@@ -5,6 +5,7 @@ import Ejercicio2 from '../views/Ejercicio2.vue';
 import Ejercicio3 from '../views/Ejercicio3.vue';
 import Ejercicio4 from '../views/Ejercicio4.vue';
 import Ejercicio5 from '../views/Ejercicio5.vue';
+import Ejercicio6 from '../views/Ejercicio6.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,11 @@ const router = createRouter({
       path: '/ejercicio5',
       name: 'ejercicio5',
       component: Ejercicio5,
+    },
+    {
+      path: '/ejercicio6',
+      name: 'ejercicio6',
+      component: Ejercicio6,
     },
     
   ]
